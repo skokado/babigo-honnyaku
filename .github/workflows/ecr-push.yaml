@@ -23,9 +23,9 @@ jobs:
     
     - name: Install docker-compose
       run: |
-        curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
-        chmod +x ~/bin/docker-compose
-        docker-compose --version
+        curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o ./bin/docker-compose
+        chmod +x ./bin/docker-compose
+        ./bin/docker-compose --version
 
     - name: Build static files
       env:
