@@ -23,7 +23,7 @@ jobs:
     
     - name: Build static files
       run: |
-        echo "DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}" > .env
+        echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > .env
         pip3 install django
         python3 manage.py collectstatic
         ls -l web/
