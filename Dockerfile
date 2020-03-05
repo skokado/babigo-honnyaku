@@ -1,7 +1,10 @@
 FROM python:3.7.6-slim
 
-WORKDIR /work
+# ホスト環境変数のマッピング
+ARG DJANGO_SECRET_KEY
 ENV DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
+
+WORKDIR /work
 
 # ライブラリインストール
 COPY Pipfile Pipfile.lock ./
