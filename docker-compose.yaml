@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  web:
+    image: nginx:1.15
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nginx:/etc/nginx/
+      - ./static:/static
+    depends_on:
+      - "app"
+  app:
+    build: .
+    container_name: app
+    ports:
+      - "8001:8001"
