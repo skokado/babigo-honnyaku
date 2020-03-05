@@ -4,7 +4,7 @@ on: [push]
  
 jobs:
   build-and-push:
-    runs-on: python:3.7.6-slim
+    runs-on: ubuntu-18.04
     timeout-minutes: 300
  
     steps:
