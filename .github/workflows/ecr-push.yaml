@@ -21,13 +21,6 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
     
-    - name: Install docker-compose
-      run: |
-        which docker
-        curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o bin/docker-compose
-        chmod +x bin/docker-compose
-        bin/docker-compose --version
-
     - name: Build static files
       env:
         DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
@@ -41,14 +34,15 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO_NAME }}
       run: |
-        bin/docker-compose build web
-        docker images
+        IMAGE_TAG=$(echo ${{ github.ref }}/web | sed -e "s#refs/tags/##g")
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG web/
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Build app container and push to ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO_NAME }}
       run: |
-        IMAGE_TAG=$(echo ${{ github.ref }} | sed -e "s#refs/tags/##g")
-        bin/docker-compose build app
-        docker images
+        IMAGE_TAG=$(echo ${{ github.ref }}/app | sed -e "s#refs/tags/##g")
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
