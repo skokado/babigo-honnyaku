@@ -15,4 +15,5 @@ COPY manage.py entrypoint.sh .env ./
 COPY babinizer/ babinizer/
 COPY app/ app/
 
+EXPOSE 8001
 ENTRYPOINT ["sh", "entrypoint.sh"]
