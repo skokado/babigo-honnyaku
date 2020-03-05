@@ -23,9 +23,10 @@ jobs:
     
     - name: Install docker-compose
       run: |
-        curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o ./bin/docker-compose
-        chmod +x ./bin/docker-compose
-        ./bin/docker-compose --version
+        which docker
+        curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o bin/docker-compose
+        chmod +x bin/docker-compose
+        bin/docker-compose --version
 
     - name: Build static files
       env:
@@ -40,7 +41,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO_NAME }}
       run: |
-        docker-compose build web
+        bin/docker-compose build web
         docker images
 
     - name: Build app container and push to ECR
@@ -49,5 +50,5 @@ jobs:
         ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO_NAME }}
       run: |
         IMAGE_TAG=$(echo ${{ github.ref }} | sed -e "s#refs/tags/##g")
-        docker-compose build app
+        bin/docker-compose build app
         docker images
