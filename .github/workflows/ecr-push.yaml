@@ -21,18 +21,33 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
     
-    - name: Build static files
+    - name: Install docker-compose
       run: |
-        echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > .env
-        export DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
+        curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        chmod +x /usr/local/bin/docker-compose
+        docker-compose --version
+    
+    - name: Build static files
+      env:
+        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      run: |
+        echo "DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY" > .env
         pip3 install django
         python3 manage.py collectstatic
-        ls -l web/
  
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Build web container and push to ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO_NAME }}
+      run: |
+        docker-compose build web
+        docker images
+
+    - name: Build app container and push to ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO_NAME }}
       run: |
         IMAGE_TAG=$(echo ${{ github.ref }} | sed -e "s#refs/tags/##g")
-        ls -l web/
+        docker-compose build app
+        docker images
