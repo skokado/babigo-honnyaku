@@ -1,6 +1,7 @@
 FROM python:3.7.6-slim
 
 WORKDIR /work
+ENV DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
 
 # ライブラリインストール
 COPY Pipfile Pipfile.lock ./
