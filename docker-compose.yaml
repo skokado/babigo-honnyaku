@@ -4,10 +4,10 @@ services:
   web:
     image: nginx:1.15
     ports:
-      - "8000:8000"
+      - "80:8000"
     volumes:
       - ./nginx:/etc/nginx/
-      - ./static:/static
+      - ./static/:/static/
     depends_on:
       - "app"
   app:

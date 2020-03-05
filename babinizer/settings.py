@@ -26,7 +26,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-SECRET_KEY = local_settings.SECRET_KEY
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # Application definition
 

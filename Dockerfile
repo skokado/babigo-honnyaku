@@ -15,6 +15,4 @@ COPY manage.py entrypoint.sh ./
 COPY babinizer/ babinizer/
 COPY app/ app/
 
-RUN python manage.py collectstatic
-
 ENTRYPOINT ["sh", "entrypoint.sh"]
