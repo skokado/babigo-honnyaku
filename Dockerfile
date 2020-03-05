@@ -12,7 +12,7 @@ RUN apt-get update && apt-get -y install build-essential && \
     rm -f Pipfile Pipfile.lock
 
 # アプリケーションビルド
-COPY manage.py entrypoint.sh .env ./
+COPY manage.py entrypoint.sh ./
 COPY babinizer/ babinizer/
 COPY app/ app/
 
