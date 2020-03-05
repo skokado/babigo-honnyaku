@@ -26,9 +26,10 @@ jobs:
     
     - name: Build static files
       run: |
+        echo "DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}" > .env
         pip install django
         python manage.py collectstatic
-        ls -l
+        ls -l web/
  
     - name: Build, tag, and push image to Amazon ECR
       env:
