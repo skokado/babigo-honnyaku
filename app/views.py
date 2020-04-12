@@ -98,14 +98,10 @@ def babinize(string: str,
 class IndexView(generic.TemplateView):
     template_name = 'index.html'
     
-    def post(self, request, *args, **kwargs):
-        before_text = request.POST['before-text']
-        use_only = request.POST['useonly']
-        if use_only == '':
-            use_only = None
-        after_text = babinize(before_text, use_only=use_only)
-        context = {'before_text': before_text,
-                   'useonly': use_only,
-                   'after_text': after_text}
-        template = loader.get_template('index.html')
-        return HttpResponse(template.render(context, request))
+
+def translate(request):
+    before_text = request.GET.get('before-text')
+    useonly = request.GET.get('useonly')
+
+    after_text = babinize(before_text, use_only=useonly)
+    return HttpResponse(after_text)

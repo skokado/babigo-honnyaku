@@ -26,36 +26,31 @@
       <p>こんにちは　→　こ<strong>ぼ</strong>ん<strong>ぶ</strong>に<strong>び</strong>ち<strong>び</strong>は<strong>ば</strong></p>
       <p>サバイバルゲーム　→　サ<strong>バ</strong>バ<strong>バ</strong>イ<strong>ビ</strong>バ<strong>バ</strong>ル<strong>ブ</strong>ゲ<strong>ベ</strong>ーム<strong>ブ</strong></p>
 
-      <form method="post" action="/">
-        {% csrf_token %}
+      <form>
         <div class="form-group">
-          {% if before_text %}
-            <textarea name="before-text" class="form-control" id="before-text" rows="5" placeholder="文章を入力してください">{{ before_text }}</textarea>
-          {% else %}
-            <textarea name="before-text" class="form-control" id="before-text" rows="5"
-              placeholder="バビ語に変換したいテキストを入力します&#13;&#10; &#13;&#10;変換モード」でバビ語のひらがな/カタカナを切り替えられます"></textarea>
-          {% endif %}
+          <textarea name="before-text" class="form-control" id="before-text" rows="5"
+            placeholder="バビ語に変換したいテキストを入力します&#13;&#10; &#13;&#10;変換モード」でバビ語のひらがな/カタカナを切り替えられます"></textarea>
         </div>
-        <div class="form-check">変換モード
+        <div class="before-text">変換モード
           <label class="radio">
             <input type="radio" name="useonly" id="modeRadios1" value="" checked="checked" data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
             標準（ひらがな、カタカナはそのままにします）
           </label>
           <label class="radio">
-            <input type="radio" name="useonly" id="modeRadios1" value="hira" {% if useonly == 'hira' %}checked="checked"{% endif %} data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+            <input type="radio" name="useonly" id="modeRadios2" value="hira" {% if useonly == 'hira' %}checked="checked"{% endif %} data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
             ひらがなのみ
           </label>
           <label class="radio">
-            <input type="radio" name="useonly" id="modeRadios1" value="kata" {% if useonly == 'kata' %}checked="checked"{% endif %} data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+            <input type="radio" name="useonly" id="modeRadios3" value="kata" {% if useonly == 'kata' %}checked="checked"{% endif %} data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
             カタカナのみ
           </label>
         </div>
-        <button type="submit" class="btn btn-primary">変換</button>
+        <input type="button" id="submit" class="btn btn-primary" value="変換"></button>
       </form>
 
       <!-- 変換後テキストエリア -->
       <div class="form-group" style="margin: 20px 0;">
-        <textarea class="form-control" id="after-text" rows="5">{{ after_text }}</textarea>
+        <textarea class="form-control" id="after-text" rows="5"></textarea>
       </div>
 
     </div>
@@ -66,6 +61,7 @@
     <!-- Bootstrap 4 requires Popper.js -->
     <script src="https://unpkg.com/popper.js@1.14.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="{% static 'scripts/flat-ui.min.js' %}"></script>
+    <script src="{% static 'scripts/application.js' %}"></script>
 
   </body>
 </html>

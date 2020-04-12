@@ -5,4 +5,5 @@ app_name = 'app'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('translate/', views.translate, name='translate'),
 ]
