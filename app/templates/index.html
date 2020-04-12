@@ -33,15 +33,15 @@
         </div>
         <div class="before-text">変換モード
           <label class="radio">
-            <input type="radio" name="useonly" id="modeRadios1" value="" checked="checked" data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+            <input type="radio" name="mode" id="modeRadios1" value="" checked="checked" data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
             標準（ひらがな、カタカナはそのままにします）
           </label>
           <label class="radio">
-            <input type="radio" name="useonly" id="modeRadios2" value="hira" {% if useonly == 'hira' %}checked="checked"{% endif %} data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+            <input type="radio" name="mode" id="modeRadios2" value="hira" data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
             ひらがなのみ
           </label>
           <label class="radio">
-            <input type="radio" name="useonly" id="modeRadios3" value="kata" {% if useonly == 'kata' %}checked="checked"{% endif %} data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+            <input type="radio" name="mode" id="modeRadios3" value="kata" data-toggle="radio" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
             カタカナのみ
           </label>
         </div>

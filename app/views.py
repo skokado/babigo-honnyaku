@@ -6,10 +6,10 @@ from django.http import HttpResponse
 from . import forms
 
 def babinize(string: str,
-             use_only=None):
+             mode=None):
     """引数チェック"""
-    if use_only and use_only not in ('hira', 'kata'):
-        raise SyntaxError('Argument "use_only" must be "hira" or "kata".')
+    if mode and mode not in ('hira', 'kata'):
+        raise SyntaxError('Argument "mode" must be "hira" or "kata".')
     chars = [c for c in string]
 
     """モードに応じた変換文字の定義"""
@@ -18,13 +18,13 @@ def babinize(string: str,
                  'u_hira': 'ぶ', 'u_kata': 'ブ',
                  'e_hira': 'べ', 'e_kata': 'ベ',
                  'o_hira': 'ぼ', 'o_kata': 'ボ'}
-    if use_only == 'hira':
+    if mode == 'hira':
         babi_char['a_kata'] = 'ば'
         babi_char['i_kata'] = 'び'
         babi_char['u_kata'] = 'ぶ'
         babi_char['e_kata'] = 'べ'
         babi_char['o_kata'] = 'ぼ'
-    elif use_only == 'kata':
+    elif mode == 'kata':
         babi_char['a_hira'] = 'バ'
         babi_char['i_hira'] = 'ビ'
         babi_char['u_hira'] = 'ブ'
@@ -101,7 +101,7 @@ class IndexView(generic.TemplateView):
 
 def translate(request):
     before_text = request.GET.get('before-text')
-    useonly = request.GET.get('useonly')
+    mode = request.GET.get('mode')
 
-    after_text = babinize(before_text, use_only=useonly)
+    after_text = babinize(before_text, mode=mode)
     return HttpResponse(after_text)

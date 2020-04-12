@@ -14,5 +14,5 @@ def test_babinize():
     assert babinize('きょう') == 'きょぼうぶ'
 
     # 変換モードを変更
-    assert babinize('きょう', use_only='hira') == 'きょぼうぶ'
-    assert babinize('きょう', use_only='kata') == 'きょボうブ'
+    assert babinize('きょう', mode='hira') == 'きょぼうぶ'
+    assert babinize('きょう', mode='kata') == 'きょボうブ'

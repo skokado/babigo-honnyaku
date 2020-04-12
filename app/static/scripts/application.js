@@ -288,19 +288,19 @@ document.getElementById("submit").addEventListener("click", function() {
               result.textContent = "エラーが発生しました"
           }
       } else { // 通信が完了する前
-          result.textContent = "通信中..."
+          result.textContent = "..."
       }
   }
   encoded_text = encodeURIComponent(document.getElementById("before-text").value)
   // 変換モードのラジオボタンの値を取得
-  buttons = document.getElementsByName("useonly")
-  var useonly;
+  buttons = document.getElementsByName("mode")
+  var mode;
   for(var i = 0, len = buttons.length; i < len; i++) {
     var btn = buttons.item(i)
     if(btn.checked) {
-      useonly = btn.value
+      mode = btn.value
     }
   }
-  xhr.open("GET", "translate?before-text=" + encoded_text + "&useonly=" + useonly, true);
+  xhr.open("GET", "translate?before-text=" + encoded_text + "&mode=" + mode, true);
   xhr.send(null);
 }, false);
